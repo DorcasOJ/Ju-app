@@ -10,7 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities';
 import { Repository } from 'typeorm';
 import { JuAppResponse } from 'src/common/helpers';
-import { pbkdf2, pbkdf2Sync, randomBytes } from 'crypto';
+import { pbkdf2Sync, randomBytes } from 'crypto';
 
 @Injectable()
 export class JwtHelperService {
@@ -34,15 +34,17 @@ export class JwtHelperService {
 
   async signRefresh(payload: {
     userAgent: string;
-    ipAddress: strng;
+    ipAddress: string;
     id: string;
   }) {
-    let refreshToken = this.jwTokenService.sign(payload, {
+    const refreshToken = this.jwTokenService.sign(payload, {
       secret: await this.configService.get(jwtConstants.refresh_secret),
       expiresIn: await this.configService.get(jwtConstants.refresh_time),
     });
 
-    let user = await this.userRepository.findOne({ where: { id: payload.id } });
+    const user = await this.userRepository.findOne({
+      where: { id: payload.id },
+    });
     await this.userRepository.update(user.id, { refreshToken }).catch((err) => {
       throw new BadRequestException(
         JuAppResponse.BadRequest('user not found', 'This user does not exist'),
@@ -62,7 +64,7 @@ export class JwtHelperService {
         userAgent: payload.userAgent,
       };
 
-      let verified = await this.userRepository.findOne({
+      const verified = await this.userRepository.findOne({
         where: {
           refreshToken: refreshToken,
         },

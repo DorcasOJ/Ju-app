@@ -7,26 +7,21 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({
-    nullable: false,
-  })
+  @Column({})
   fullName: string;
 
   @Column({
-    nullable: false,
     unique: true,
   })
   email: string;
 
-  @Column({
-    nullable: false,
-  })
+  @Column({})
   password: string;
 
   @Column({ nullable: true })
   profileID?: string;
 
-  @Column({ unique: true, nullable: tue })
+  @Column({ unique: true, nullable: true })
   @Exclude()
   refreshToken?: string;
 

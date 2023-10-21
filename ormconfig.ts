@@ -5,12 +5,12 @@ ConfigModule.forRoot();
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: process.env.DATABASE_HOST,
-  port: +process.env.DATABASE_PORT,
-  username: process.env.DATABASE_USERNAME,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
+  host: process.env.Db_HOST,
+  port: +process.env.Db_PORT,
+  username: process.env.Db_USERNAME,
+  password: process.env.Db_PASSWORD,
+  database: process.env.Db_NAME,
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   migrations: ['dist/src/database/migration/*js'],
-  synchronize: true, // false
+  synchronize: false,
 });

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JuAppResponse } from 'src/common/helpers';
-import { User as userEntity } from 'src/entities';
+import { User, User as userEntity } from 'src/entities';
 import { Repository } from 'typeorm';
 
 import { encodePassword } from 'src/utils/bcrypt';
